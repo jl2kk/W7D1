@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
 
-
+    # before_action :require_logged_in, only: [:destroy]
+    before_action :require_logged_out, only: [:new,:create]
 
     def new
         render :new 
@@ -13,7 +14,8 @@ class SessionsController < ApplicationController
         password = params[:user][:password]
         @user = User.find_by_credentials(username,password)
 
-        if @user.save 
+        if @user
+            @user.save
             login(@user)
             redirect_to cats_url
         else 
@@ -23,8 +25,8 @@ class SessionsController < ApplicationController
     end 
 
     def destroy
-        logout!
 
+        logout!
         redirect_to new_session_url
     end 
 
