@@ -3,7 +3,7 @@ class User < ApplicationRecord
 
     validates :username, presence: true, uniqueness: true 
     validates :password_digest, presence: true 
-    validates :session_token, presence: true, index: true 
+    # validates :session_token, presence: true, index: true 
 
     before_validation :ensure_session_token 
 
